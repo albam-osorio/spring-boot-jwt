@@ -23,6 +23,7 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.var;
 
 @Component
 public class JwtTokenUtil implements Serializable {
@@ -52,11 +53,20 @@ public class JwtTokenUtil implements Serializable {
     }
 
 	public String generateToken(Authentication authentication) {
-		final String authorities = authentication.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+		// @formatter:off
+		final String authorities = authentication
+				.getAuthorities()
+				.stream()
+				.map(GrantedAuthority::getAuthority)
 				.collect(Collectors.joining(","));
-		return Jwts.builder().setSubject(authentication.getName()).claim(AUTHORITIES_KEY, authorities)
-				.signWith(SignatureAlgorithm.HS256, SIGNING_KEY).setIssuedAt(new Date(System.currentTimeMillis()))
-				.setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000)).compact();
+		return Jwts.builder()
+				.setSubject(authentication.getName())
+				.claim(AUTHORITIES_KEY, authorities)
+				.signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
+				.setIssuedAt(new Date(System.currentTimeMillis()))
+				.setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
+				.compact();
+		// @formatter:on
     }
 
 	public Boolean validateToken(String token, UserDetails userDetails) {
