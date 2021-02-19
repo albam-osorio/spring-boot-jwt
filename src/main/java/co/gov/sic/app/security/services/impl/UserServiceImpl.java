@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 		if (optional.isPresent()) {
 			val entity = optional.get();
 			entity.setAttempts(entity.getAttempts() + 1);
-			if (entity.getAttempts() > Constants.MAX_ATTEMPS) {
+			if (entity.getAttempts() >= Constants.MAX_ATTEMPS) {
 				entity.setLocked(true);
 			}
 			userRepository.save(entity);

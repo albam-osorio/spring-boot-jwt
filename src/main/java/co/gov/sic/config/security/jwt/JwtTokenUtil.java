@@ -23,7 +23,6 @@ import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import lombok.var;
 
 @Component
 public class JwtTokenUtil implements Serializable {

@@ -27,20 +27,20 @@ public class BrandController extends QueryRestController<BrandModel, Long> {
 		return service;
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')")
 	@GetMapping(PATH_LIST)
 	public ResponseEntity<List<BrandModel>> list() {
 		val result = getService().findAll();
 		return ResponseEntity.ok(result);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')")
 	@Override
 	public ResponseEntity<List<BrandModel>> list(@PathVariable List<Long> ids) {
 		return super.list(ids);
 	}
 
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize("hasRole('USER')")
 	@Override
 	public ResponseEntity<BrandModel> get(@PathVariable Long id) {
 		return super.get(id);
